@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 
 namespace Alura.Adopet.Console
 {
+    [DocComando(instrucao: "list",
+        documentacao: "adopet list comando que exibe no terminal a lista de pets cadastrados na API.")]
     internal class List
     {
         // cria instância de HttpClient para consumir API Adopet

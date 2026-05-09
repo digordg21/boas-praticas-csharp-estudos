@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 
 namespace Alura.Adopet.Console
 {
+    [DocComando(instrucao:"import", 
+        documentacao: "adopet import <arquivo> comando que realiza a importação do arquivo de pets.")]
     internal class Import
     {
         // cria instância de HttpClient para consumir API Adopet
@@ -20,26 +22,11 @@ namespace Alura.Adopet.Console
 
         public async Task ImportacaoArquivoPetAsync(string caminhoArquivoDeImportacao)
         {
-            List<Pet> listaDePet = new List<Pet>();
-
-            using (StreamReader sr = new StreamReader(caminhoArquivoDeImportacao))
-            {
-                while (!sr.EndOfStream)
-                {
-                    // separa linha usando ponto e vírgula
-                    string[] propriedades = sr.ReadLine().Split(';');
-                    // cria objeto Pet a partir da separação
-                    Pet pet = new Pet(Guid.Parse(propriedades[0]),
-                      propriedades[1],
-                      TipoPet.Cachorro
-                     );
-
-                    System.Console.WriteLine(pet);
-                    listaDePet.Add(pet);
-                }
-            }
+            LeitorDeArquivo leitor = new LeitorDeArquivo();
+            List<Pet> listaDePet = leitor.RealizaLeitura(caminhoArquivoDeImportacao);
             foreach (var pet in listaDePet)
             {
+                System.Console.WriteLine(pet);
                 try
                 {
                     var resposta = await CreatePetAsync(pet);

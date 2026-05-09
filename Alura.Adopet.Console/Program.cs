@@ -16,11 +16,11 @@ try
             break;
         case "help":
             var help = new Help();
-            help.ExibirAjuda(args);
+            help.ExibirAjuda(parametros:args);
             break;
         case "show":
             var show = new Show();
-            show.ExibirListaImportacao(args[1]);
+            show.ExibirListaImportacao(caminhoDoArquivoExibido: args[1]);
             break;
         case "list":
             var list = new List();
